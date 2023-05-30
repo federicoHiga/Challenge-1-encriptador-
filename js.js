@@ -1,17 +1,14 @@
-//antes de remasterizar el css terminar el curso 5 de html y css
-//+ placeholders cuando validar sea false. Algun div con display=hidden en lugar del alert, o marcar el textarea de rojo 
-
 const mensajeUsuario = document.querySelector ("textarea");
 
 //limitar caracteres 
 var limitar=true;
 function limitarCaracteres(){
-    if(/[0-9]/gi.test(mensajeUsuario.value)==true||/[^a-z]/gi.test(mensajeUsuario.value)==true){
-        limitar=false;
-        placeholder();
-    }else{
+    if(/^[a-z\s]*$/gi.test(mensajeUsuario.value)){
         limitar=true;
         document.getElementById("mensaje").style.outline="none";
+    }else{
+        limitar=false;
+        placeholder();
     }
 }
 function placeholder(){
@@ -27,9 +24,7 @@ function placeholder(){
 function triggerEncriptar(){
     limitarCaracteres();
     if(mensajeUsuario.value==""){
-        alert("El campo esta vacio");
-    }else if(limitar==false){
-        alert("No se permiten caraceteres especiales ni numeros");
+        alert("Cuidado!: el campo esta vacio o introdujo caracteres especiales");
     }else if(mensajeUsuario.value!=""){
         showOutput(encriptar(mensajeUsuario.value));
     }
@@ -37,9 +32,7 @@ function triggerEncriptar(){
 function triggerDesencriptar(){
     limitarCaracteres();
     if(mensajeUsuario.value==""){
-        alert("el campo esta vacio");
-    }else if(limitar==false){
-        alert("No se permiten caraceteresespeciales ni numeros");
+        alert("Cuidado!: el campo esta vacio o introdujo caracteres especiales");
     }else if(mensajeUsuario!=""){
         showOutput(desencriptar(mensajeUsuario.value));
     }
@@ -68,6 +61,7 @@ function copiar() {
     let textarea = document.getElementById("output");
     textarea.select();
     document.execCommand("copy");//el .execCommand esta deprecado para firefox, pero aun no encontre una solucion superadora
+    document.getElementById ("output").value="";
 }
 //copiar button
 //output
